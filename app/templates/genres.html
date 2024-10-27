@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Genres</h2>
+<form method="POST">
+  <input type="text" name="name" placeholder="Genre Name" required>
+  <button type="submit">Add Genre</button>
+</form>
+<hr>
+<ul>
+  {% for genre in genres %}
+  <li>{{ genre.genre_name }} <a href="{{ url_for('delete_genre', genre_id=genre.id_genre) }}">Delete</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
