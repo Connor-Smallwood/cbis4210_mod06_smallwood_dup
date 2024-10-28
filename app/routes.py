@@ -2,7 +2,7 @@ from app import app, db
 from app.models import Movie, Genre
 from flask import render_template, request, redirect, url_for
 
-#Routes
+#Route stuff
 
 @app.route('/')
 def home():
