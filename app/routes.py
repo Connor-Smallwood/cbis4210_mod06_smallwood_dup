@@ -2,6 +2,8 @@ from app import app, db
 from app.models import Movie, Genre
 from flask import render_template, request, redirect, url_for
 
+#Routes
+
 @app.route('/')
 def home():
     return render_template('home.html')
