@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Movie Management</title>
+    <style>
+      .filter-form {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+      }
+      .filter-button {
+        align-self: flex-end;
+        padding: 5px 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .filter-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <style>
+      .filter-add-container {
+        display: flex;
+        gap: 20px;
+      }
+      .filter-section {
+        flex: 1;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      .add-movie-section {
+        flex: 2;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+    </style>
   </head>
   <body>
     <header>

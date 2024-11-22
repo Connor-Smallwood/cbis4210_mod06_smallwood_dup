@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Movie</h2>
+<form method="POST">
+  <input type="text" name="title" value="{{ movie.title }}" required>
+  <input type="number" name="year" value="{{ movie.release_year }}" required>
+  <label for="genre_ids">Genres:</label><br>
+  {% for genre in genres %}
+  <input type="checkbox" name="genre_ids" value="{{ genre.id_genre }}" {% if genre in movie.genres %}checked{% endif %}> {{ genre.genre_name }}<br>
+  {% endfor %}
+  <button type="submit">Save Changes</button>
+</form>
+{% endblock %}
