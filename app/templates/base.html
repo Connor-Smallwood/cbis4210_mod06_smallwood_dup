@@ -1,66 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Movie Management</title>
-    <style>
-      .filter-form {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-      .filter-group {
-        display: flex;
-        flex-direction: column;
-      }
-      .filter-button {
-        align-self: flex-end;
-        padding: 5px 10px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .filter-button:hover {
-        background-color: #0056b3;
-      }
-    </style>
-    <style>
-      .filter-add-container {
-        display: flex;
-        gap: 20px;
-      }
-      .filter-section {
-        flex: 1;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-      }
-      .add-movie-section {
-        flex: 2;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="{{ url_for('home') }}">Home</a></li>
-          <li><a href="{{ url_for('show_movies') }}">Movies</a></li>
-          <li><a href="{{ url_for('show_genres') }}">Genres</a></li>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Movie App{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">My Movie App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-
+controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('movies.show_movies') }}">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('genres.show_genres') }}">Genres</a>
+            </li>
         </ul>
-      </nav>
-    </header>
-    <div class="container">
-      {% block content %}{% endblock %}
     </div>
-  </body>
+</nav>
+
+<div class="container mt-4">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% block scripts %}{% endblock %}
+</body>
 </html>

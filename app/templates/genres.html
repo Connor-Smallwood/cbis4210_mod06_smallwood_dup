@@ -1,17 +1,149 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Genres</h2>
-<form method="POST">
-  <input type="text" name="genre_name" placeholder="Genre Name" required>
-  <button type="submit">Add Genre</button>
-</form>
-<hr>
-<ul>
-  {% for genre in genres %}
-  <li>{{ genre.genre_name }}
-    <a href="{{ url_for('edit_genre', genre_id=genre.id_genre) }}">Edit</a>
-    <a href="{{ url_for('delete_genre', genre_id=genre.id_genre) }}" method="post">Delete</a>
-  </li>
-  {% endfor %}
-</ul>
+
+<!-- Button to trigger Add Genre Modal -->
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addGenreModal">
+  Add Genre
+</button>
+
+<!-- Genres List -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Genre Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for genre in genres %}
+    <tr>
+      <td>{{ genre.genre_name }}</td>
+      <td>
+        <!-- Edit Button -->
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-toggle="modal"
+          data-target="#editGenreModal"
+          data-id="{{ genre.genre_id }}"
+          data-name="{{ genre.genre_name }}"
+        >
+          Edit
+        </button>
+        <!-- Delete Button -->
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          data-toggle="modal"
+          data-target="#deleteGenreModal"
+          data-id="{{ genre.genre_id }}"
+          data-name="{{ genre.genre_name }}"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Add Genre Modal -->
+<div class="modal fade" id="addGenreModal" tabindex="-1" aria-labelledby="addGenreModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url_for('genres.show_genres') }}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addGenreModalLabel">Add Genre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="genre_name">Genre Name</label>
+            <input type="text" class="form-control" name="genre_name" id="genre_name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Add Genre</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Genre Modal -->
+<div class="modal fade" id="editGenreModal" tabindex="-1" aria-labelledby="editGenreModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" id="editGenreForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editGenreModalLabel">Edit Genre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="edit_genre_name">Genre Name</label>
+            <input type="text" class="form-control" name="genre_name" id="edit_genre_name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update Genre</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Genre Modal -->
+<div class="modal fade" id="deleteGenreModal" tabindex="-1" aria-labelledby="deleteGenreModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" id="deleteGenreForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteGenreModalLabel">Delete Genre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete the genre "<span id="delete_genre_name"></span>"?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Delete Genre</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Edit Genre Modal
+  $('#editGenreModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var genreId = button.data('id');
+    var genreName = button.data('name');
+
+    var modal = $(this);
+    modal.find('#edit_genre_name').val(genreName);
+    modal.find('#editGenreForm').attr('action', '/genres/edit/' + genreId);
+  });
+
+  // Delete Genre Modal
+  $('#deleteGenreModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var genreId = button.data('id');
+    var genreName = button.data('name');
+
+    var modal = $(this);
+    modal.find('#delete_genre_name').text(genreName);
+    modal.find('#deleteGenreForm').attr('action', '/genres/delete/' + genreId);
+  });
+</script>
 {% endblock %}

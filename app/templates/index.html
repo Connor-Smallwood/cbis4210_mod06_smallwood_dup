@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Home - My Movie App{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content text-center">
+        <h1>Welcome to My Movie App</h1>
+        <p class="lead">Discover and manage your favorite movies and genres effortlessly.</p>
+        <a class="btn btn-primary btn-lg mr-2" href="{{ url_for('movies.show_movies') }}" role="button">Browse Movies</a>
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('genres.show_genres') }}" role="button">Explore Genres</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .hero-section {
+        position: relative;
+        background-image: url('{{ url_for('static', filename='images/hero-background.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        color: #fff;
+        margin-top: -56px; /* Adjust if navbar height changes */
+    }
+
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    }
+
+    .hero-content {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .hero-content h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+    }
+
+    .btn-primary {
+        background-color: #ff5a5f;
+        border-color: #ff5a5f;
+    }
+
+    .btn-outline-light {
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #fff;
+        color: #000;
+    }
+</style>
+{% endblock %}
