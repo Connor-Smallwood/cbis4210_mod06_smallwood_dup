@@ -6,7 +6,7 @@
   <input type="number" name="year" value="{{ movie.release_year }}" required>
   <label for="genre_ids">Genres:</label><br>
   {% for genre in genres %}
-  <input type="checkbox" name="genre_ids" value="{{ genre.id_genre }}" {% if genre in movie.genres %}checked{% endif %}> {{ genre.genre_name }}<br>
+  <input type="checkbox" name="genre_ids" value="{{ genre.id_genre }}" {% if genre.id_genre in movie.genres|map(attribute='id_genre') %}checked{% endif %}> {{ genre.genre_name }}<br>
   {% endfor %}
   <button type="submit">Save Changes</button>
 </form>

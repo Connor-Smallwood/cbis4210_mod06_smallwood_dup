@@ -1,11 +1,14 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
+from .db_connect import close_db, get_db
 app = Flask(__name__)
-from .config import Config
-app.config.from_object(Config)
 
+app.secret_key = 'secret_key'
 
-db = SQLAlchemy(app)
+# Register blueprints
+from app.blueprints.movies import movies
+from app.blueprints.genres import genres
 
-from app import routes, models
+app.register_blueprint(movies)
+app.register_blueprint(genres)
+
+from app import routes
