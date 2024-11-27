@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Regions - Sales Data Management{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Regions</h1>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRegionModal">
+        Add New Region
+    </button>
+
+    <!-- Table displaying all regions -->
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Region ID</th>
+                <th>Region Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for region in regions %}
+            <tr>
+                <td>{{ region.region_id }}</td>
+                <td>{{ region.region_name }}</td>
+                <td>{{ region.description }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editRegionModal{{ region.region_id }}">
+                        Edit
+                    </button>
+                    <!-- Delete Button -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteRegionModal{{ region.region_id }}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Edit Region Modal -->
+            <div class="modal fade" id="editRegionModal{{ region.region_id }}" tabindex="-1" role="dialog" aria-labelledby="editRegionModalLabel{{ region.region_id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="{{ url_for('edit_region', region_id=region.region_id) }}">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editRegionModalLabel{{ region.region_id }}">Edit Region</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Region Name -->
+                                <div class="form-group">
+                                    <label for="regionName{{ region.region_id }}">Region Name</label>
+                                    <input type="text" class="form-control" name="region_name" id="regionName{{ region.region_id }}" value="{{ region.region_name }}" required>
+                                </div>
+                                <!-- Description -->
+                                <div class="form-group">
+                                    <label for="description{{ region.region_id }}">Description</label>
+                                    <textarea class="form-control" name="description" id="description{{ region.region_id }}">{{ region.description }}</textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-warning">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Region Modal -->
+            <div class="modal fade" id="deleteRegionModal{{ region.region_id }}" tabindex="-1" role="dialog" aria-labelledby="deleteRegionModalLabel{{ region.region_id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="{{ url_for('delete_region', region_id=region.region_id) }}">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteRegionModalLabel{{ region.region_id }}">Delete Region</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete the region "<strong>{{ region.region_name }}</strong>"?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Region Modal -->
+<div class="modal fade" id="addRegionModal" tabindex="-1" role="dialog" aria-labelledby="addRegionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="{{ url_for('regions') }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRegionModalLabel">Add New Region</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Region Name -->
+                    <div class="form-group">
+                        <label for="regionName">Region Name</label>
+                        <input type="text" class="form-control" name="region_name" id="regionName" required>
+                    </div>
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Region</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

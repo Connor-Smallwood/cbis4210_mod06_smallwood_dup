@@ -5,10 +5,9 @@ app = Flask(__name__)
 app.secret_key = 'secret_key'
 
 # Register blueprints
-from app.blueprints.movies import movies
-from app.blueprints.genres import genres
+from app.blueprints.sales import sales_bp
 
-app.register_blueprint(movies)
-app.register_blueprint(genres)
+app.register_blueprint(sales_bp)
+
 
 from app import routes

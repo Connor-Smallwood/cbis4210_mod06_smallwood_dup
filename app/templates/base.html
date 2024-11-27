@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Movie App{% endblock %}</title>
+    <title>{% block title %}Sales Data Management{% endblock %}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">My Movie App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-
-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Sales Data Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,11 +18,16 @@ controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <a class="nav-link" href="{{ url_for('home') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('movies.show_movies') }}">Movies</a>
+                <a class="nav-link" href="{{ url_for('sales_data') }}">Sales Data</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('genres.show_genres') }}">Genres</a>
+                <a class="nav-link" href="{{ url_for('reports') }}">Reports</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('visualizations') }}">Visualizations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('regions') }}">Regions</a>
         </ul>
     </div>
 </nav>
