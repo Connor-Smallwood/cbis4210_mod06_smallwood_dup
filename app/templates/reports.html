@@ -11,24 +11,66 @@
         th, td {
             text-align: left;
         }
+        .sort-buttons {
+            margin-bottom: 10px;
+        }
     </style>
 
     <!-- Displaying Total Sales Per Region -->
     <div class="mt-4">
         <h3>Total Sales per Region</h3>
-        <div>{{ total_sales_per_region | safe }}</div>
+        <div class="sort-buttons">
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('total_sales_per_region', 'asc')">Sort Ascending</button>
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('total_sales_per_region', 'desc')">Sort Descending</button>
+        </div>
+        {% if total_sales_per_region is not none %}
+        <div id="total_sales_per_region">{{ total_sales_per_region | safe | replace('_', ' ') }}</div>
+        {% else %}
+        <p>No data available for Total Sales per Region.</p>
+        {% endif %}
     </div>
 
     <!-- Displaying Total Quantity Sold per Product -->
     <div class="mt-4">
         <h3>Total Quantity Sold per Product</h3>
-        <div>{{ total_quantity_per_product | safe }}</div>
+        <div class="sort-buttons">
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('total_quantity_per_product', 'asc')">Sort Ascending</button>
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('total_quantity_per_product', 'desc')">Sort Descending</button>
+        </div>
+        {% if total_quantity_per_product is not none %}
+        <div id="total_quantity_per_product">{{ total_quantity_per_product | safe | replace('_', ' ') }}</div>
+        {% else %}
+        <p>No data available for Total Quantity Sold per Product.</p>
+        {% endif %}
     </div>
 
     <!-- Displaying Monthly Sales Summary -->
     <div class="mt-4">
         <h3>Monthly Sales Summary</h3>
-        <div>{{ monthly_sales_summary | safe }}</div>
+        <div class="sort-buttons">
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('monthly_sales_summary', 'asc')">Sort Ascending</button>
+            <button class="btn btn-secondary btn-sm" onclick="sortTable('monthly_sales_summary', 'desc')">Sort Descending</button>
+        </div>
+        {% if monthly_sales_summary is not none %}
+        <div id="monthly_sales_summary">{{ monthly_sales_summary | safe | replace('_', ' ') }}</div>
+        {% else %}
+        <p>No data available for Monthly Sales Summary.</p>
+        {% endif %}
     </div>
 </div>
+
+<script>
+    function sortTable(tableId, order) {
+        const table = document.getElementById(tableId).getElementsByTagName('table')[0];
+        const rows = Array.from(table.rows).slice(1);
+        const sortedRows = rows.sort((a, b) => {
+            const aValue = parseFloat(a.cells[1].innerText.replace(/,/g, ''));
+            const bValue = parseFloat(b.cells[1].innerText.replace(/,/g, ''));
+            return order === 'asc' ? aValue - bValue : bValue - aValue;
+        });
+        const tbody = table.getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '';
+        sortedRows.forEach(row => tbody.appendChild(row));
+    }
+</script>
 {% endblock %}

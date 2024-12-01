@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Visualizations - Sales Data Management{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Sales Visualizations</h1>
+    <p>Below are some charts displaying sales data insights:</p>
+
+    <!-- Pie Chart for Total Sales per Region -->
+    <div class="mt-4">
+        <h3>Total Sales per Region</h3>
+        <img src="data:image/png;base64,{{ plot_url_pie_chart }}" alt="Total Sales per Region Pie Chart" class="img-fluid">
+    </div>
+
+    <!-- Bar Chart for Total Quantity Sold per Product -->
+    <div class="mt-4">
+        <h3>Total Quantity Sold per Product</h3>
+        <img src="data:image/png;base64,{{ plot_url_bar_chart }}" alt="Total Quantity Sold per Product Bar Chart" class="img-fluid">
+    </div>
+
+    <!-- Bar Chart for Monthly Sales Summary -->
+    <div class="mt-4">
+        <h3>Monthly Sales Summary</h3>
+        <img src="data:image/png;base64,{{ plot_url_monthly_bar_chart }}" alt="Monthly Sales Summary Bar Chart" class="img-fluid">
+    </div>
+</div>
+{% endblock %}
